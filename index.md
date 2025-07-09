@@ -5,7 +5,7 @@ title: Home
 
 <div class="hero">
   <div class="container">
-    <h1>Hi, I'm [Your Name]</h1>
+    <h1>Hi, I'm Dinesh</h1>
     <p>Taxonomist Transitioning to Data Management & Ontology Engineering</p>
     <a href="#about" class="btn">Learn More About Me</a>
   </div>

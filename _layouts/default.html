@@ -4,32 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-    <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
     <style>
-        /* Inline critical CSS to ensure it loads */
-        body {
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
             line-height: 1.6;
             color: #333;
         }
+        
+        /* Left Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #2c3e50;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding-top: 2rem;
+        }
+        
+        .sidebar.open {
+            left: 0;
+        }
+        
+        .sidebar .nav-header {
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid #34495e;
+        }
+        
+        .sidebar .nav-header h3 {
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .sidebar .nav-links {
+            list-style: none;
+            padding: 2rem 0;
+        }
+        
+        .sidebar .nav-links li {
+            margin: 0;
+        }
+        
+        .sidebar .nav-links a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar .nav-links a:hover {
+            background: #34495e;
+            border-left-color: #3498db;
+            color: white;
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger:hover {
+            background: #34495e;
+        }
+        
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+        }
+        
+        /* Hero Section */
         .hero {
             background: linear-gradient(135deg, #2c3e50, #3498db);
             color: white;
-            padding: 4rem 0;
+            padding: 6rem 2rem 4rem;
             text-align: center;
         }
+        
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
             color: white;
         }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
+        
         .btn {
             display: inline-block;
             padding: 12px 24px;
@@ -38,16 +147,117 @@
             border-radius: 6px;
             text-decoration: none;
             transition: all 0.3s ease;
+            font-weight: 500;
         }
+        
         .btn:hover {
             background: #2980b9;
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .hamburger {
+                display: none;
+            }
+            
+            .sidebar {
+                left: 0;
+                position: relative;
+                height: auto;
+                width: 250px;
+                float: left;
+            }
+            
+            .main-content {
+                margin-left: 250px;
+            }
+            
+            .overlay {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <main>
+    <!-- Hamburger Menu Button -->
+    <button class="hamburger" onclick="toggleNav()">☰</button>
+    
+    <!-- Overlay -->
+    <div class="overlay" onclick="closeNav()"></div>
+    
+    <!-- Left Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="nav-header">
+            <h3>{{ site.title | default: "Your Name" }}</h3>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ '/' | relative_url }}">🏠 Home</a></li>
+            <li><a href="{{ '/about/' | relative_url }}">👨‍🔬 About</a></li>
+            <li><a href="{{ '/projects/' | relative_url }}">📊 Projects</a></li>
+            <li><a href="{{ '/blog/' | relative_url }}">📝 Blog</a></li>
+            <li><a href="{{ '/contact/' | relative_url }}">📧 Contact</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="main-content">
         {{ content }}
-    </main>
+        
+        <footer>
+            <div class="container">
+                <p>&copy; 2025 {{ site.title | default: "Your Name" }}. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        function toggleNav() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+        
+        function closeNav() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            sidebar.classList.remove('open');
+            overlay.classList.remove('show');
+        }
+        
+        // Close nav when clicking nav links on mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', closeNav);
+            });
+        });
+    </script>
 </body>
 </html>
