@@ -1,0 +1,29 @@
+// Modern Color Palette
+$primary-color: #2c3e50;
+$accent-color: #3498db;
+$text-color: #333;
+$light-gray: #f8f9fa;
+$white: #ffffff;
+$dark-gray: #6c757d;
+
+// Typography
+$font-family-base: 'Inter', 'Segoe UI', system-ui, sans-serif;
+$font-family-heading: 'Inter', 'Segoe UI', system-ui, sans-serif;
+$font-size-base: 1rem;
+$line-height-base: 1.6;
+
+// Spacing
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 2rem;
+$spacing-lg: 3rem;
+$spacing-xl: 4rem;
+
+// Breakpoints
+$mobile: 768px;
+$tablet: 992px;
+$desktop: 1200px;
+
+// Animations
+$transition-base: all 0.3s ease;
+$border-radius: 8px;
