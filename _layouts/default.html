@@ -3,24 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} - {{ site.title }}</title>
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
     <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+    <style>
+        /* Inline critical CSS to ensure it loads */
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+        .hero {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #3498db;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-        </div>
-    </nav>
-    
-    <main class="container">
+    <main>
         {{ content }}
     </main>
-    
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 {{ site.author.name }}. All rights reserved.</p>
-        </div>
-    </footer>
 </body>
 </html>
