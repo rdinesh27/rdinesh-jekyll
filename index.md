@@ -11,6 +11,11 @@ title: Home
   </div>
 </div>
 
+<section id="home">
+  <h2>Home</h2>
+  <p>Welcome to my personal website! Explore my background, projects, and contact info.</p>
+</section>
+
 <section id="about" style="padding: 4rem 0;">
   <div class="container">
     <div class="card">
@@ -38,4 +43,18 @@ title: Home
       </ul>
     </div>
   </div>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+  <ul>
+    <li><strong>Portfolio Website</strong> – A simple responsive personal site using HTML & CSS.</li>
+    <li><strong>Weather App</strong> – A weather forecast app using JavaScript and APIs.</li>
+  </ul>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Email: yourname@example.com</p>
+  <p>GitHub: <a href="https://github.com/yourname" target="_blank">yourname</a></p>
 </section>
